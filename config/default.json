@@ -1,0 +1,11 @@
+{
+
+    "db": {
+
+        "url": "postgres://postgres:pakistan123@localhost:5432/demo",
+
+        "migration-filename-format": "utc"
+
+    }
+
+}

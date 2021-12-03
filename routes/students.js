@@ -37,4 +37,5 @@ router.post('/fahad',(req,res)=>{
 })
 router.get("/verifyToken",Authcontroller.checkToken)
 router.post("/login",Authcontroller.login)
+router.get("/logout",Authcontroller.logout)
 module.exports = router;

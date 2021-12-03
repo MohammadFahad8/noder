@@ -65,7 +65,8 @@ import {UserContext} from './UserContext'
 
 //home component
 function App() {
-  const[user,setUser] = React.useState("Bingo")
+  const[user,setUser] = React.useState("user creds")
+  const[auth,setAuth] = React.useState(false)
 
 return(
   <div>
@@ -79,7 +80,7 @@ return(
       </li>
     </ul>
   </nav>
-  <UserContext.Provider value={{user,setUser}}>
+  <UserContext.Provider value={{user,setUser,auth,setAuth}}>
   <Routes>
   
   <Route path="/" exact element={<Index/>} />

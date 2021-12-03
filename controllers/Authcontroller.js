@@ -11,7 +11,7 @@ exports.checkToken =async(req,res)=>
     let auth = false;
     if(!req_token)
     {
-        return res.json({"message":"Login Again"})
+        return res.json({auth:false,"message":"Login Again"})
     }
     try{
         if(!jwt.verify(req_token,process.env.JWT_SECRET))throw 'token not valid';
@@ -29,7 +29,7 @@ exports.checkToken =async(req,res)=>
 
     if(!auth)
     {
-        return res.json(400).json({"message":"token verification failed"})
+        return res.json(400).json({auth:false,"message":"token verification failed"})
     }else
     {
         const data = jwt.verify(req_token,process.env.JWT_SECRET)
@@ -44,7 +44,7 @@ exports.checkToken =async(req,res)=>
                         return res.status(400).json({"error":"user not found"})
                     }
                     const {id,email}=user
-                    return res.status(200).json({user:{id,email}})
+                    return res.status(200).json({auth:true,user:{id,email}})
                 })
               
                 
@@ -52,7 +52,7 @@ exports.checkToken =async(req,res)=>
 }
 exports.login = async(req,res)=>{
 
-
+let auth =false;
     const u  = await User.findOne({
         where:{
             email:{
@@ -75,11 +75,17 @@ res.cookie('token', token, {httpOnly: true});
 
 }
 
-return res.status(200).json({"status":200,message:"login success"});
+return res.status(200).json({auth:true,"status":200,message:"login success"});
     // res.json({"message":"Login Successfull"})
 }else
 {
-    res.json({"status":400,"message":"Login Failed"})
+    res.json({auth:false,"status":400,"message":"Login Failed"})
 }
 
+}
+
+exports.logout = (req,res)=>
+{
+    res.clearCookie('token');
+    res.json({auth:false,"message":"Logged out"})
 }

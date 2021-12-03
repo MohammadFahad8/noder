@@ -4,7 +4,7 @@ import { UserContext } from "../UserContext";
 import { login } from "../utils/login";
 import  axios  from "axios";
 export function Index() {
-const {user,setUser} = React.useContext(UserContext)
+const {user,setUser,auth,setAuth} = React.useContext(UserContext)
 const[userEmail,setEmail] = React.useState(null)
 const login = () =>
 {
@@ -29,6 +29,17 @@ const login = () =>
     
     
 }
+const logout = ()=>
+{
+    setUser(null);
+    setAuth(false);
+    axios.get("/students/logout").then((res)=>{
+        alert("Login again")
+        setTimeout(()=>{
+            window.location.reload()
+        },2000)
+    })
+}
 const isAuthenticated = ()=>
 {
     // return await fetch(`http://localhost:3855/students/verifyToken`,{
@@ -41,8 +52,9 @@ const isAuthenticated = ()=>
         
     //     .catch(err=>console.log(err))
     axios.get("/students/verifyToken").then((response)=>{
-          console.log(response.data)
+          console.log(response.data.auth)
     setUser({...response.data.user})
+    setAuth(response.data.auth)
     console.log(user)
     })
   
@@ -61,12 +73,13 @@ React.useEffect(()=>{
     <div>
     <h2>Home</h2>
     <pre>{JSON.stringify(user, null, 2)}</pre>
-    {user ? (
+    <pre>{JSON.stringify(auth, null, 2)}</pre>
+    {auth ? (
       <button
-        onClick={() => {
+        onClick={
           // call logout
-          setUser(null);
-        }}
+          logout
+        }
       >
         logout
       </button>

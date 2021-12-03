@@ -2,6 +2,9 @@ const express = require('express');
 const sequelize = require('./config/connection');
 var app = express();
 var students = require('./routes/students');
+const bodyParser = require('body-parser')
+var cors = require("cors");
+var cookieParser = require("cookie-parser");
 var port = 3855
 // var client = require('./models/student.model.js')
 // console.log("REQUIRED",client)
@@ -30,8 +33,15 @@ if(req.query.role == 'user'){
         next()
 }
 }
+app.use(cookieParser())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cors())
 
+app.get('/c',(req,res)=>{
 
+    console.log('Signed Cookies: ', req.signedCookies)
+})
 app.use('/students',students)
 
 app.get('/test',[testMW], (req,res)=>{
@@ -51,6 +61,7 @@ app.get('/abc',[checkIfLoggedIn], (req,res)=>{
     
 //     res.end();
 // })
+
 sequelize.sync();
 app.listen(port,(err,res)=>{
 

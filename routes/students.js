@@ -4,6 +4,7 @@ const router = express.Router();
 const mw = require('../middleware/checkStudent.js')
 const lu = require('../middleware/isLoggedIn.js')
 const studentController = require('../controllers/student.controller')
+const Authcontroller = require('../controllers/Authcontroller')
 const midds = {
     mw,lu
 }
@@ -34,4 +35,6 @@ router.post('/fahad',(req,res)=>{
 
     console.log(req)
 })
+router.get("/verifyToken",Authcontroller.checkToken)
+router.post("/login",Authcontroller.login)
 module.exports = router;

@@ -4,6 +4,7 @@ var app = express();
 var students = require('./routes/students');
 const bodyParser = require('body-parser')
 var cors = require("cors");
+var path = require('path')
 var cookieParser = require("cookie-parser");
 var multer = require('multer');
 var upload = multer();
@@ -36,6 +37,7 @@ if(req.query.role == 'user'){
 }
 }
 app.use(cookieParser())
+app.use("/uploads", express.static("uploads/users"));
 // app.use(bodyParser.json())
 // app.use(bodyParser.urlencoded({ extended: true }))
 // app.use(upload.array('fileslist', 1)); 
@@ -71,5 +73,6 @@ sequelize.sync();
 app.listen(port,(err,res)=>{
 
     console.log(`connected on port number:${port}`)
+    // console.log(`connected on port number:${__dirname}+/public/images/download.png`)
 })
 // INSTALLED EXPRESS AND PRACTICING

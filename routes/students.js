@@ -32,7 +32,7 @@ const multerConf ={
     storage: multer.diskStorage({
         destination:function(req,file,next)
         {
-            next(null,"./public/images")
+            next(null,"./uploads/users")
         },
         filename:function(req,file,next)
         {

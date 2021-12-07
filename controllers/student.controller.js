@@ -70,3 +70,10 @@ exports.taskstousers = async(req,res)=>{
     res.json(users)
     console.log("All users with their associated tasks:", JSON.stringify(users, null, 4));
 }
+
+exports.uploadForm = (req,res)=>
+{
+    var file = req
+    console.log(file)
+    
+}

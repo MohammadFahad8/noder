@@ -26,11 +26,48 @@ router.get('/fahad/:id',[midds.mw,midds.lu],(req,res)=>{
     
 //     res.json(options)
 // })
+var multer = require('multer')
+
+const multerConf ={
+    storage: multer.diskStorage({
+        destination:function(req,file,next)
+        {
+            next(null,"./public/images")
+        },
+        filename:function(req,file,next)
+        {
+            const ext = file.mimetype.split("/")[1];
+            next(null,file.fieldname+'-'+Date.now()+'.'+ext);
+            
+
+        }
+    }),
+    fileFilter:function(req,file,next)
+    {
+        if(!file){
+            next();
+        }
+        const image = file.mimetype.startsWith('image/');
+        if(image)
+        {
+            next(null,true)
+        }else
+        {
+            
+             next({message:"Unsupported tpye"},false)
+        }
+
+    }
+}
+
+var upload = multer(multerConf)
+
 router.get('/fahad',studentController.allStudents)
 router.get('/books',studentController.allBooks)
 router.get('/cars',studentController.cars)
 router.get('/user-tasks',studentController.usertasks)
 router.get('/tasks',studentController.taskstousers)
+router.post("/imgUpload",upload.array('photo',3),studentController.uploadForm)
 router.post('/fahad',(req,res)=>{
 
     console.log(req)
@@ -38,4 +75,5 @@ router.post('/fahad',(req,res)=>{
 router.get("/verifyToken",Authcontroller.checkToken)
 router.post("/login",Authcontroller.login)
 router.get("/logout",Authcontroller.logout)
+
 module.exports = router;

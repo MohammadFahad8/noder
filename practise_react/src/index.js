@@ -3,12 +3,14 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter,Routes,Route,useNavigate } from 'react-router-dom';
 import './index.css';
 import App from './App';
+import {Imageupload} from './components/imageUpload';
 import reportWebVitals from './reportWebVitals';
 
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    {/* <App /> */}
+    <Imageupload/>
   </BrowserRouter>,
   document.getElementById('root')
 );

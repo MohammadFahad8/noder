@@ -5,6 +5,8 @@ var students = require('./routes/students');
 const bodyParser = require('body-parser')
 var cors = require("cors");
 var cookieParser = require("cookie-parser");
+var multer = require('multer');
+var upload = multer();
 var port = 3855
 // var client = require('./models/student.model.js')
 // console.log("REQUIRED",client)
@@ -34,8 +36,11 @@ if(req.query.role == 'user'){
 }
 }
 app.use(cookieParser())
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+// app.use(bodyParser.json())
+// app.use(bodyParser.urlencoded({ extended: true }))
+// app.use(upload.array('fileslist', 1)); 
+// app.use(express.static('public'));
+
 app.use(cors())
 
 app.get('/c',(req,res)=>{

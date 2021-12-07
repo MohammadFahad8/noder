@@ -72,9 +72,11 @@ React.useEffect(()=>{
   return (
     <div>
     <h2>Home</h2>
+    
+    {auth ? (
+    <>
     <pre>{JSON.stringify(user, null, 2)}</pre>
     <pre>{JSON.stringify(auth, null, 2)}</pre>
-    {auth ? (
       <button
         onClick={
           // call logout
@@ -83,6 +85,7 @@ React.useEffect(()=>{
       >
         logout
       </button>
+      </>
     ) : (
 <>
         <input type="email" name="email" onChange={(e)=>setEmail(e.target.value)}/>

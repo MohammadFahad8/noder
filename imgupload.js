@@ -16,8 +16,9 @@ app.post('/uploadFile',(req,res)=>{
 
     var form = new formiddable.IncomingForm();
     form.parse(req,(err,fields,files)=>{
-
+ console.log("F",files.imgToUpload)
         var oldPath =files.imgToUpload.filepath;
+               
         var newPath = __dirname+"/public/images/"+"__goat__"+files.imgToUpload.originalFilename
             fs.rename(oldPath,newPath,(err)=>{
                 if(err) throw err;
